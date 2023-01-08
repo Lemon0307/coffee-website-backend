@@ -13,6 +13,7 @@ router.post('/sign-up', bodyParser.json(), async(req, res) => {
             const user = new User({firstName, surname, username, email, password})
             await user.save()
             res.json({url: "/login", message: "Successfuly signed up!"})
+            console.log('a new user has been created')
         }
     })
 })
