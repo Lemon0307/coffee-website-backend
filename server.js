@@ -3,6 +3,7 @@ const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const app = express();
 const PORT = 8000;
+require('dotenv').config()
 
 const Product = require('./schemas/Product')
 
@@ -17,7 +18,7 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(cors())
 
-mongoose.connect("mongodb+srv://porkguy69:51111088@cluster0.ky7vuhd.mongodb.net/coffee", () => {
+mongoose.connect(process.env.MONGODB, () => {
     console.log('connected to mongodb server')
 })
 
@@ -29,7 +30,8 @@ async function test() {
 //testing
 
 app.use("/products", productsRouter)
-app.use('/', authRouter)
+app.use('/auth', authRouter)
 app.use(express.json())
+
 
 app.listen(PORT, console.log(`Server online on port ${PORT}`))
